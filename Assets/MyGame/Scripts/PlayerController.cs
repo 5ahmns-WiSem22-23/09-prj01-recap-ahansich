@@ -2,19 +2,36 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    
+    // Die Variablen
      Rigidbody2D rb;
+    SpriteRenderer rendern;
 
+    // verlinken des anderen Scripts 
     [SerializeField]
     SceneManager sm;
 
+    // Sprite für das Basis Auto
+    [SerializeField]
+    Sprite basis;
+
+    // Sprite für das Auto, das ein Item trägt
+    [SerializeField]
+    Sprite carry;
+
+    bool carriesPickup;
+
+    // 
     [SerializeField]
     float drivingSpeed;
+
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rendern = GetComponent<SpriteRenderer>();
+
+        rendern.sprite = basis;
     }
   
 
@@ -28,9 +45,17 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("PickUp"))
         {
-            sm.SpawnItem();
+            rendern.sprite = carry;
             Destroy(collision.gameObject);
+            carriesPickup = true;
 
+        }
+        else if (collision.CompareTag("DropOff") && carriesPickup)
+        {
+            rendern.sprite = basis;
+            sm.SpawnItem();
+            SceneManager.pickUpCount++;
+            carriesPickup = false;
         }
     }
 }

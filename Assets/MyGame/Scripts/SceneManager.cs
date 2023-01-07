@@ -10,6 +10,8 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     GameObject pickUp;
 
+    public static int pickUpCount;
+
     void Start()
     {
          SpawnItem();

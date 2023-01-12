@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 
     // verlinken des anderen Scripts 
     [SerializeField]
-    SceneManager sm;
+    GameSceneManager sm;
 
     // Sprite für das Basis Auto
     [SerializeField]
@@ -19,11 +19,9 @@ public class PlayerController : MonoBehaviour
     Sprite carry;
 
     bool carriesPickup;
-
-    // 
+ 
     [SerializeField]
     float drivingSpeed;
-
 
 
     void Start()
@@ -54,7 +52,7 @@ public class PlayerController : MonoBehaviour
         {
             rendern.sprite = basis;
             sm.SpawnItem();
-            SceneManager.pickUpCount++;
+            GameSceneManager.pickUpCount++;
             carriesPickup = false;
         }
     }
